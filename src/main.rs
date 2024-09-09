@@ -1,14 +1,15 @@
-use std::io::{self, stdout};
+use std::io::{self, stdout, Write};
 
 use crossterm::{
     style::{Color, Print, SetForegroundColor},
-    ExecutableCommand,
+    QueueableCommand,
 };
 
 fn main() -> io::Result<()> {
     stdout()
-        .execute(SetForegroundColor(Color::DarkYellow))?
-        .execute(Print("Hello, reovim"))?;
+        .queue(SetForegroundColor(Color::DarkYellow))?
+        .queue(Print("Hello, reovim"))?
+        .flush()?;
 
     Ok(())
 }
